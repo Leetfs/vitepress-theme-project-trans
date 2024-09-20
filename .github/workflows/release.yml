@@ -27,12 +27,12 @@ jobs:
       - name: 更新 package.json 中的版本号
         id: update_version
         run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          MAJOR_MINOR_VERSION=$(echo $CURRENT_VERSION | awk -F. '{print $1"."$2}')
           if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == refs/tags/* ]]; then
             NEW_VERSION="${{ github.ref }}"
             NEW_VERSION=${NEW_VERSION#refs/tags/}
           else
-            CURRENT_VERSION=$(node -p "require('./package.json').version")
-            MAJOR_MINOR_VERSION=$(echo $CURRENT_VERSION | awk -F. '{print $1"."$2}')
             NEW_VERSION="${MAJOR_MINOR_VERSION}.$(date +%s)"
           fi
 
