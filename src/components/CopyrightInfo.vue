@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
 import { ref, computed, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue';
 import type { Node, Trie } from '../plugins/CopyrightLoader.data';
 import { data } from '../plugins/CopyrightLoader.data';
 
