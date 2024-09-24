@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 
 // 获取页面数据
 const { frontmatter } = useData()
@@ -19,6 +19,18 @@ watch(() => frontmatter.value, (newFrontmatter) => {
   licenseUrl.value = newFrontmatter.copyright?.licenseUrl ?? ''
 })
 
+// 计算页面的作者信息
+const authors = computed(() => {
+  let author = (frontmatter.value?.author ?? []) as string[]
+  if (!Array.isArray(author))
+    author = [author]
+  return author
+})
+
+// 计算显示的作者信息
+const displayAuthors = computed(() => {
+  return `${authors.value.join(', ')} 等`
+})
 </script>
 
 <template>
@@ -29,7 +41,7 @@ watch(() => frontmatter.value, (newFrontmatter) => {
         <span>这篇文章 </span>
         <span>{{ frontmatter.title }}</span>
         <span> 由</span>
-        <a v-if="originUrl" :href="originUrl">{{ authors.value.join(', ') }}</a>
+        <a v-if="originUrl" :href="originUrl">{{ displayAuthors }}</a>
         <span> 创作</span>
         <span v-if="license">
           <span>，Project Trans 在 </span>
