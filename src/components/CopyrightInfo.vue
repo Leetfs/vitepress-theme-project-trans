@@ -42,6 +42,7 @@ const displayAuthors = computed(() => {
         <span>{{ frontmatter.title }}</span>
         <span> 由 </span>
         <a v-if="originUrl" :href="originUrl">{{ displayAuthors }}</a>
+        <span v-else>{{ displayAuthors }}</span>
         <span> 创作</span>
         <span v-if="license">
           <span>，Project Trans 在 </span>
