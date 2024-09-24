@@ -7,12 +7,12 @@ type NavConfig = DefaultTheme.Config['nav']
 
 export interface ThemeContext {
   siteTitle: string
+  siteLogo: string
   siteDescription: string
   githubRepoLink: string
   rootDir: string
   include: string[]
   nav: NavConfig
-  siteLogo: string
   sidebarOptions: Options | Options[]
 }
 
