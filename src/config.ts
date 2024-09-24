@@ -43,11 +43,12 @@ function countWords(content: string): number {
 // https://vitepress.dev/reference/site-config
 function genConfig() {
   const themeConfig = useThemeContext()
-  const { siteTitle, githubRepoLink, nav}
+  const { siteTitle, githubRepoLink, nav, siteLogo}
     = themeConfig
   return defineConfig({
     lang: 'zh-CN',
     title: siteTitle,
+    logo: siteLogo,
     cleanUrls: true,
     markdown: {
       config(md) {
