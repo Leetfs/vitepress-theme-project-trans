@@ -23,18 +23,28 @@ function searchClosestInTrie(
   return node.value
 }
 
+// 获取页面数据
+const { frontmatter } = useData()
+
 // 创建响应式变量
-const frontmatter = ref(useData().frontmatter.value)
 const attrs = ref<Record<string, any> | null>(null)
 
-// 监听路径变化
+// 计算路径并更新 attrs
+function updateAttrs() {
+  const paths = useData()
+    .page.value.relativePath
+    .replace('.md', '')
+    .split('/')
+    .filter((item: string) => item !== '')
+  
+  attrs.value = searchClosestInTrie(data, paths)
+}
+
+// 监听页面数据变化
 watch(
   () => useData().page.value.relativePath,
-  (newPath) => {
-    const paths = newPath.replace('.md', '').split('/').filter(Boolean)
-    attrs.value = searchClosestInTrie(data, paths)
-  },
-  { immediate: true }  // 初次加载时立即执行一次
+  updateAttrs,
+  { immediate: true } // 初始化时也执行一次
 )
 
 // 计算属性
@@ -70,3 +80,7 @@ const licenseUrlExists = computed(() => licenseUrl.value !== 'javascript:void(0)
     <hr>
   </div>
 </template>
+
+<style scoped>
+/* 这里可以添加样式 */
+</style>
