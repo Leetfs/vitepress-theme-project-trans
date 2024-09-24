@@ -12,7 +12,7 @@ export interface ThemeContext {
   rootDir: string
   include: string[]
   nav: NavConfig
-  logo: string
+  siteLogo: string
   sidebarOptions: Options | Options[]
 }
 
