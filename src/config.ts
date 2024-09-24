@@ -47,7 +47,7 @@ function genConfig() {
     = themeConfig
   return defineConfig({
     lang: 'zh-CN',
-    title: siteTitle,
+    title: 123,
     logo: siteLogo,
     cleanUrls: true,
     markdown: {
