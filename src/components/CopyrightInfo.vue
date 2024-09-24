@@ -27,8 +27,10 @@ watch(() => frontmatter.value, (newFrontmatter) => {
       <p class="custom-block-title">Copyright</p>
       <p>
         <span>这篇文章 </span>
-        <a v-if="originUrl" :href="originUrl">{{ frontmatter.title }}</a>
+        <a>{{ frontmatter.title }}</a>
         <span v-else>{{ frontmatter.title }}</span>
+        <span> 由</span>
+        <a v-if="originUrl" :href="originUrl">{{ frontmatter.author }}</a>
         <span> 创作</span>
         <span v-if="license">
           <span>，Project Trans 在 </span>
