@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import type { Node, Trie } from '../plugins/CopyrightLoader.data';
 import { data } from '../plugins/CopyrightLoader.data';
 
@@ -26,12 +27,24 @@ function searchClosestInTrie(
   return node.value;
 }
 
-const paths = ref(useData()
-  .page.value.relativePath.replace('.md', '').split('/')
-  .filter((item: string) => item !== ''));
+const route = useRoute();
 
-const attrs = ref(searchClosestInTrie(data, paths.value));
-const frontmatter = ref(useData().frontmatter.value);
+const paths = ref<string[]>([]);
+const attrs = ref<Record<string, any> | null>(null);
+const frontmatter = ref<Record<string, any>>({});
+
+const updateData = () => {
+  const newPaths = route.path.replace('.md', '').split('/').filter((item: string) => item !== '');
+  paths.value = newPaths;
+  attrs.value = searchClosestInTrie(data, newPaths);
+  frontmatter.value = useData().frontmatter.value;
+};
+
+updateData();
+
+watch(route, () => {
+  updateData();
+});
 
 const originUrlExists = computed(() => (attrs.value?.copyright?.url ?? null) != null);
 const originUrl = computed(() => attrs.value?.copyright?.url ?? 'javascript:void(0)');
