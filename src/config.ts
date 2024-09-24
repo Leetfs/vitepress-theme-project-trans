@@ -91,7 +91,7 @@ function genConfig() {
     ],
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
-      // siteTitle: false,
+      siteTitle: false,
       // logo: {
       //   src: '/logo-horizontal.svg',
       //   alt: 'Logo: RLE.wiki',
