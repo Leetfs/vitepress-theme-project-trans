@@ -29,7 +29,7 @@ const authors = computed(() => {
 
 // 计算显示的作者信息
 const displayAuthors = computed(() => {
-  return `${authors.value.join(', ')} 等`
+  return `${authors.value.join(', ')}`
 })
 </script>
 
@@ -40,7 +40,7 @@ const displayAuthors = computed(() => {
       <p>
         <span>这篇文章 </span>
         <span>{{ frontmatter.title }}</span>
-        <span> 由</span>
+        <span> 由 </span>
         <a v-if="originUrl" :href="originUrl">{{ displayAuthors }}</a>
         <span> 创作</span>
         <span v-if="license">
