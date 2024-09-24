@@ -91,10 +91,10 @@ function genConfig() {
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       siteTitle: false,
-      logo: {
-        src: '/logo-horizontal.svg',
-        alt: 'Logo: RLE.wiki',
-      },
+      // logo: {
+      //   src: '/logo-horizontal.svg',
+      //   alt: 'Logo: RLE.wiki',
+      // },
       nav,
       sidebar: generateSidebar(),
       socialLinks: [{ icon: 'github', link: githubRepoLink }],
