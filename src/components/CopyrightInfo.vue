@@ -12,12 +12,12 @@ const license = ref(frontmatter.value.copyright?.license ?? '')
 const licenseUrl = ref(frontmatter.value.copyright?.licenseUrl ?? '')
 
 // 监听 frontmatter 的变化
-// watch(() => frontmatter.value, (newFrontmatter) => {
-//   enableCopyright.value = newFrontmatter.copyright?.enable ?? false
-//   originUrl.value = newFrontmatter.copyright?.url ?? ''
-//   license.value = newFrontmatter.copyright?.license ?? ''
-//   licenseUrl.value = newFrontmatter.copyright?.licenseUrl ?? ''
-// })
+watch(() => frontmatter.value, (newFrontmatter) => {
+  enableCopyright.value = newFrontmatter.copyright?.enable ?? false
+  // originUrl.value = newFrontmatter.copyright?.url ?? ''
+  // license.value = newFrontmatter.copyright?.license ?? ''
+  // licenseUrl.value = newFrontmatter.copyright?.licenseUrl ?? ''
+})
 
 // 计算页面的作者信息
 const authors = computed(() => {
