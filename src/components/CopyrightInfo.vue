@@ -29,7 +29,7 @@ watch(() => frontmatter.value, (newFrontmatter) => {
         <span>这篇文章 </span>
         <span>{{ frontmatter.title }}</span>
         <span> 由</span>
-        <a v-if="originUrl" :href="originUrl">{{ frontmatter.author }}</a>
+        <a v-if="originUrl" :href="originUrl">{{ authors.value.join(', ') }}</a>
         <span> 创作</span>
         <span v-if="license">
           <span>，Project Trans 在 </span>
