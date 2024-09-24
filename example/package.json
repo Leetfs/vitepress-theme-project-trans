@@ -8,7 +8,7 @@
     "preview": "vitepress preview docs"
   },
   "dependencies": {
-    "@project-trans/vitepress-theme-project-trans": "workspace:*"
+    "test-vitepress-theme-project-trans": "workspace:*"
   },
   "devDependencies": { "vitepress": "^1.2.3" }
 }

@@ -90,7 +90,7 @@ importers:
 
   example:
     dependencies:
-      '@project-trans/vitepress-theme-project-trans':
+      'test-vitepress-theme-project-trans':
         specifier: workspace:*
         version: link:..
     devDependencies:

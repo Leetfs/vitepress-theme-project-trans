@@ -1,7 +1,7 @@
-import genConfig from '@project-trans/vitepress-theme-project-trans/config'
-import type { SidebarOptions } from '@project-trans/vitepress-theme-project-trans/theme'
-import type { ThemeContext } from '@project-trans/vitepress-theme-project-trans/utils'
-import { withThemeContext } from '@project-trans/vitepress-theme-project-trans/utils'
+import genConfig from 'test-vitepress-theme-project-trans/config'
+import type { SidebarOptions } from 'test-vitepress-theme-project-trans/theme'
+import type { ThemeContext } from 'test-vitepress-theme-project-trans/utils'
+import { withThemeContext } from 'test-vitepress-theme-project-trans/utils'
 import type { DefaultTheme } from 'vitepress'
 
 const nav: DefaultTheme.NavItem[] = []

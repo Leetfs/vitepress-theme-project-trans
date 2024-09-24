@@ -10,10 +10,10 @@
 
 ```typescript
 // docs/.vitepress/config.ts
-import genConfig from '@project-trans/vitepress-theme-project-trans/config'
-import type { SidebarOptions } from '@project-trans/vitepress-theme-project-trans/theme'
-import type { ThemeContext } from '@project-trans/vitepress-theme-project-trans/utils'
-import { withThemeContext } from '@project-trans/vitepress-theme-project-trans/utils'
+import genConfig from 'test-vitepress-theme-project-trans/config'
+import type { SidebarOptions } from 'test-vitepress-theme-project-trans/theme'
+import type { ThemeContext } from 'test-vitepress-theme-project-trans/utils'
+import { withThemeContext } from 'test-vitepress-theme-project-trans/utils'
 
 const themeConfig: ThemeContext = {
   siteTitle: 'RLE.wiki',
@@ -35,7 +35,7 @@ export default withThemeContext(themeConfig, genConfig)
 ```typescript
 // docs/.vitepress/theme/index.ts
 // https://vitepress.dev/guide/custom-theme
-import PtjsTheme from '@project-trans/vitepress-theme-project-trans/theme'
+import PtjsTheme from 'test-vitepress-theme-project-trans/theme'
 
 import 'uno.css'
 import './style.css'
