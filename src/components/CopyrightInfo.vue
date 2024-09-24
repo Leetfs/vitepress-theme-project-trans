@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { useData } from 'vitepress';
-import { ref, computed, watch } from 'vue';
-import { useRoute } from 'vue';
-import type { Node, Trie } from '../plugins/CopyrightLoader.data';
-import { data } from '../plugins/CopyrightLoader.data';
+import { ref, watchEffect } from 'vue'
+import { useData } from 'vitepress'
+import type { Node, Trie } from '../plugins/CopyrightLoader.data'
+import { data } from '../plugins/CopyrightLoader.data'
 
 function searchClosestInTrie(
   that: Trie<Record<string, any>>,
@@ -11,48 +10,39 @@ function searchClosestInTrie(
   node: Node<Record<string, any>> = that.root,
 ): Record<string, any> | null {
   if (path.length === 0)
-    return node.value;
+    return node.value
 
   if (path[0] in node.children) {
     let value = searchClosestInTrie(
       that,
       path.slice(1),
       node.children[path[0]],
-    );
+    )
     if (value === null)
-      value = node.value;
+      value = node.value
 
-    return value;
+    return value
   }
-  return node.value;
+  return node.value
 }
 
-const route = useRoute();
+const attrs = ref<Record<string, any> | null>(null)
+const frontmatter = useData().frontmatter.value
 
-const paths = ref<string[]>([]);
-const attrs = ref<Record<string, any> | null>(null);
-const frontmatter = ref<Record<string, any>>({});
+watchEffect(() => {
+  const paths = useData()
+    .page.value.relativePath.replace('.md', '').split('/')
+    .filter((item: string) => item !== '')
+  
+  attrs.value = searchClosestInTrie(data, paths)
+})
 
-const updateData = () => {
-  const newPaths = route.path.replace('.md', '').split('/').filter((item: string) => item !== '');
-  paths.value = newPaths;
-  attrs.value = searchClosestInTrie(data, newPaths);
-  frontmatter.value = useData().frontmatter.value;
-};
+const originUrlExists = () => (attrs.value?.copyright?.url ?? null) != null
+const originUrl = () => attrs.value?.copyright?.url ?? 'javascript:void(0)'
 
-updateData();
-
-watch(route, () => {
-  updateData();
-});
-
-const originUrlExists = computed(() => (attrs.value?.copyright?.url ?? null) != null);
-const originUrl = computed(() => attrs.value?.copyright?.url ?? 'javascript:void(0)');
-
-const license = computed(() => attrs.value?.copyright?.license ?? null);
-const licenseExists = computed(() => license.value != null);
-const licenseUrlExists = computed(() => (attrs.value?.copyright?.licenseUrl ?? null) != null);
-const licenseUrl = computed(() => attrs.value?.copyright?.licenseUrl ?? 'javascript:void(0)');
+const licenseExists = () => attrs.value?.copyright?.license != null
+const licenseUrlExists = () => (attrs.value?.copyright?.licenseUrl ?? null) != null
+const licenseUrl = () => attrs.value?.copyright?.licenseUrl ?? 'javascript:void(0)'
 </script>
 
 <template>
