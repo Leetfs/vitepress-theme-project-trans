@@ -47,8 +47,7 @@ function genConfig() {
     = themeConfig
   return defineConfig({
     lang: 'zh-CN',
-    title: 123,
-    logo: siteLogo,
+    title: siteTitle,
     cleanUrls: true,
     markdown: {
       config(md) {
@@ -96,6 +95,7 @@ function genConfig() {
       //   src: '/logo-horizontal.svg',
       //   alt: 'Logo: RLE.wiki',
       // },
+      logo: siteLogo,
       nav,
       sidebar: generateSidebar(),
       socialLinks: [{ icon: 'github', link: githubRepoLink }],
