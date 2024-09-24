@@ -1,51 +1,56 @@
 <script setup lang="ts">
+import { ref, watch, computed } from 'vue'
 import { useData } from 'vitepress'
 import type { Node, Trie } from '../plugins/CopyrightLoader.data'
 import { data } from '../plugins/CopyrightLoader.data'
 
+// 搜索函数
 function searchClosestInTrie(
   that: Trie<Record<string, any>>,
   path: string[],
   node: Node<Record<string, any>> = that.root,
 ): Record<string, any> | null {
-  if (path.length === 0)
-    return node.value
+  if (path.length === 0) return node.value
 
   if (path[0] in node.children) {
-    let value = searchClosestInTrie(
+    const value = searchClosestInTrie(
       that,
       path.slice(1),
       node.children[path[0]],
     )
-    if (value === null)
-      value = node.value
-
-    return value
+    return value === null ? node.value : value
   }
   return node.value
 }
 
-const paths = useData()
-  .page.value.relativePath.replace('.md', '').split('/')
-  .filter((item: string) => item !== '')
-const attrs = searchClosestInTrie(data, paths)
-const frontmatter = useData().frontmatter.value
+// 创建响应式变量
+const frontmatter = ref(useData().frontmatter.value)
+const attrs = ref<Record<string, any> | null>(null)
 
-const originUrlExists = (attrs?.copyright?.url ?? null) != null
-const originUrl = attrs?.copyright?.url ?? 'javascript:void(0)'
+// 监听路径变化
+watch(
+  () => useData().page.value.relativePath,
+  (newPath) => {
+    const paths = newPath.replace('.md', '').split('/').filter(Boolean)
+    attrs.value = searchClosestInTrie(data, paths)
+  },
+  { immediate: true }  // 初次加载时立即执行一次
+)
 
-const license = attrs?.copyright?.license ?? null
-const licenseExists = license != null
-const licenseUrlExists = (attrs?.copyright?.licenseUrl ?? null) != null
-const licenseUrl = attrs?.copyright?.licenseUrl ?? 'javascript:void(0)'
+// 计算属性
+const originUrl = computed(() => attrs.value?.copyright?.url ?? 'javascript:void(0)')
+const licenseUrl = computed(() => attrs.value?.copyright?.licenseUrl ?? 'javascript:void(0)')
+const license = computed(() => attrs.value?.copyright?.license ?? null)
+
+const originUrlExists = computed(() => originUrl.value !== 'javascript:void(0)')
+const licenseExists = computed(() => license.value != null)
+const licenseUrlExists = computed(() => licenseUrl.value !== 'javascript:void(0)')
 </script>
 
 <template>
   <div v-if="attrs?.copyright?.enable ?? false">
     <div class="tip custom-block">
-      <p class="custom-block-title">
-        Copyright
-      </p>
+      <p class="custom-block-title">Copyright</p>
       <p>
         <span>这篇文章 </span>
         <a v-if="originUrlExists" :href="originUrl">{{ frontmatter.title }}</a>
