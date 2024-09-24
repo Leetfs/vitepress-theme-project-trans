@@ -78,3 +78,4 @@ jobs:
       #       -H "Authorization: token ${{ steps.auth.outputs.token }}" \
       #       https://api.github.com/repos/project-trans/RLE-wiki/actions/workflows/update-and-build.yml/dispatches \
       #       -d '{"ref":"main", "inputs": {"theme_version": "${{ env.release_type }}"}}'
+      
