@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 import { useData } from 'vitepress'
 import type { Node, Trie } from '../plugins/CopyrightLoader.data'
 import { data } from '../plugins/CopyrightLoader.data'
 
+// 搜索函数
 function searchClosestInTrie(
   that: Trie<Record<string, any>>,
   path: string[],
@@ -26,31 +27,43 @@ function searchClosestInTrie(
   return node.value
 }
 
+// 创建响应式变量
 const attrs = ref<Record<string, any> | null>(null)
-const frontmatter = useData().frontmatter.value
+const originUrl = ref('javascript:void(0)')
+const licenseUrl = ref('javascript:void(0)')
+const frontmatter = ref(useData().frontmatter.value)
 
-watchEffect(() => {
-  const paths = useData()
-    .page.value.relativePath.replace('.md', '').split('/')
-    .filter((item: string) => item !== '')
-  
-  attrs.value = searchClosestInTrie(data, paths)
-})
+// 监听路径变化
+watch(
+  () => useData().page.value.relativePath,
+  (newPath) => {
+    const paths = newPath.replace('.md', '').split('/').filter((item: string) => item !== '')
+    attrs.value = searchClosestInTrie(data, paths)
+    if (attrs.value) {
+      originUrl.value = attrs.value.copyright?.url ?? 'javascript:void(0)'
+      licenseUrl.value = attrs.value.copyright?.licenseUrl ?? 'javascript:void(0)'
+    }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => useData().frontmatter.value,
+  (newFrontmatter) => {
+    frontmatter.value = newFrontmatter
+  },
+  { immediate: true }
+)
 
 const originUrlExists = () => (attrs.value?.copyright?.url ?? null) != null
-const originUrl = () => attrs.value?.copyright?.url ?? 'javascript:void(0)'
-
 const licenseExists = () => attrs.value?.copyright?.license != null
 const licenseUrlExists = () => (attrs.value?.copyright?.licenseUrl ?? null) != null
-const licenseUrl = () => attrs.value?.copyright?.licenseUrl ?? 'javascript:void(0)'
 </script>
 
 <template>
   <div v-if="attrs?.copyright?.enable ?? false">
     <div class="tip custom-block">
-      <p class="custom-block-title">
-        Copyright
-      </p>
+      <p class="custom-block-title">Copyright</p>
       <p>
         <span>这篇文章 </span>
         <a v-if="originUrlExists" :href="originUrl">{{ frontmatter.title }}</a>
@@ -70,3 +83,4 @@ const licenseUrl = () => attrs.value?.copyright?.licenseUrl ?? 'javascript:void(
     <hr>
   </div>
 </template>
+
