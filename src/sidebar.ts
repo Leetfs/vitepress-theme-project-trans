@@ -27,17 +27,17 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
       return infoA.order - infoB.order;
   }
   //如果 order 字段不存在，则根据 text 字段排序
-  // else {
-  //   const textA = infoA.text;
-  //   const textB = infoB.text;
-  //   const infoANfc = textA.normalize('NFC');
-  //   const infoBNfc = textB.normalize('NFC');
-  //   if (textA === undefined || textB === undefined) {
-  //     return 0;
-  //   }
-  //   return infoANfc.localeCompare(infoBNfc, 'zh', {
-  //     numeric: true,
-  //   });
-  // }
+  else {
+    const textA = infoA.text;
+    const textB = infoB.text;
+    const infoANfc = textA.normalize('NFC');
+    const infoBNfc = textB.normalize('NFC');
+    if (textA === undefined || textB === undefined) {
+      return 0;
+    }
+    return infoANfc.localeCompare(infoBNfc, 'zh', {
+      numeric: true,
+    });
+  }
  
 }
