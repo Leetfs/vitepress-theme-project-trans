@@ -20,13 +20,27 @@ export function generateSidebar() {
 }
 
 function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
-  // const textA = infoA.text
-  // const textB = infoB.text
-  // if (textA === undefined || textB === undefined)
-  //   return 0
-  //   const infoANfc = textA.normalize('NFC')
-  //   const infoBNfc = textB.normalize('NFC')
-  //   return infoANfc.localeCompare(infoBNfc, 'zh', {
-  //   numeric: true,
-  // })
+  // 优先根据 order 字段排序
+  if (infoA.order !== undefined && infoB.order !== undefined) {
+    if (infoA.order !== infoB.order) {
+      return infoA.order - infoB.order;
+    }
+  } else if (infoA.order !== undefined) {
+    return -1; // infoA 有 order 字段，infoB 没有
+  } else if (infoB.order !== undefined) {
+    return 1; // infoB 有 order 字段，infoA 没有
+  }
+
+  // 如果 order 字段相等或不存在，则根据 title 字段排序
+  const titleA = infoA.title;
+  const titleB = infoB.title;
+  if (titleA === undefined || titleB === undefined) {
+    return 0;
+  }
+
+  const infoANfc = titleA.normalize('NFC');
+  const infoBNfc = titleB.normalize('NFC');
+  return infoANfc.localeCompare(infoBNfc, 'zh', {
+    numeric: true,
+  });
 }
