@@ -233,11 +233,13 @@ function genConfig() {
 
       // 统计字数并插入到 Frontmatter
       const wordCount = countWords(content)
+      pageData.title = pageData.title.replace(/\d+\.order\./g, '');
 
       return {
         frontmatter: {
           ...pageData.frontmatter,
           wordCount, // 将字数写入 Frontmatter
+          pageData,
         },
       }
     },

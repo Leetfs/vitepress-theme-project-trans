@@ -7,11 +7,10 @@ import type { DefaultTheme } from 'vitepress'
 const nav: DefaultTheme.NavItem[] = []
 
 const baseConfig = {
-  // useTitleFromFrontmatter: true,
+  useTitleFromFrontmatter: true,
   useFolderTitleFromIndexFile: true,
   useFolderLinkFromIndexFile: true,
-  removePrefixAfterOrdering: true,
-  // prefixSeparator: '.order.',
+  sortMenusByFrontmatterOrder: true,
   collapsed: true,
   documentRootPath: '/docs',
 } satisfies Partial<SidebarOptions>
