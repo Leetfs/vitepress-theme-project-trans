@@ -23,10 +23,8 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
   
   
   // 优先根据 order 字段排序
-  if (infoA.order !== undefined && infoB.order !== undefined) {
-    if (infoA.order !== infoB.order) {
+  if (infoA.order !== infoB.order) {
       return infoA.order - infoB.order;
-    }
   }
   //如果 order 字段不存在，则根据 text 字段排序
   // else {
