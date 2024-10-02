@@ -19,17 +19,21 @@ export function generateSidebar() {
   return sidebar
 }
 
-function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
+function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number { 
   // 优先根据 order 字段排序
   if (infoA.order !== undefined && infoB.order !== undefined) {
-    return infoA.order - infoB.order;
+    if (infoA.order !== infoB.order) {
+      return infoA.order - infoB.order;
+    }
+    // 如果两个 order 相等，则直接返回 0，不进行 text 排序
+    return 0;
   } else if (infoA.order !== undefined) {
     return -1; // infoA 有 order 字段，infoB 没有
   } else if (infoB.order !== undefined) {
     return 1; // infoB 有 order 字段，infoA 没有
   }
 
-  // 如果 order 字段相等或不存在，则根据 text 字段排序
+  // 如果 order 字段不存在，则根据 text 字段排序
   const textA = infoA.text;
   const textB = infoB.text;
   if (textA === undefined || textB === undefined) {
