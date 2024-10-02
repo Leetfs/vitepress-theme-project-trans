@@ -32,15 +32,15 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
   }
 
   // 如果 order 字段相等或不存在，则根据 text 字段排序
-  const textA = infoA.text;
-  const textB = infoB.text;
-  if (textA === undefined || textB === undefined) {
-    return 0;
-  }
+  // const textA = infoA.text;
+  // const textB = infoB.text;
+  // if (textA === undefined || textB === undefined) {
+  //   return 0;
+  // }
 
-  const infoANfc = textA.normalize('NFC');
-  const infoBNfc = textB.normalize('NFC');
-  return infoANfc.localeCompare(infoBNfc, 'zh', {
-    numeric: true,
-  });
+  // const infoANfc = textA.normalize('NFC');
+  // const infoBNfc = textB.normalize('NFC');
+  // return infoANfc.localeCompare(infoBNfc, 'zh', {
+  //   numeric: true,
+  // });
 }
