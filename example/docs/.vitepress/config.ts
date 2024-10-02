@@ -10,6 +10,8 @@ const baseConfig = {
   useTitleFromFrontmatter: true,
   useFolderTitleFromIndexFile: true,
   useFolderLinkFromIndexFile: true,
+  removePrefixAfterOrdering: true,
+  prefixSeparator: '.order.',
   collapsed: true,
   documentRootPath: '/docs',
 } satisfies Partial<SidebarOptions>
