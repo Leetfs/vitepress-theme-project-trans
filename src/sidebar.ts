@@ -22,9 +22,7 @@ export function generateSidebar() {
 function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
   // 优先根据 order 字段排序
   if (infoA.order !== undefined && infoB.order !== undefined) {
-    if (infoA.order !== infoB.order) {
-      return infoA.order - infoB.order;
-    }
+    return infoA.order - infoB.order;
   } else if (infoA.order !== undefined) {
     return -1; // infoA 有 order 字段，infoB 没有
   } else if (infoB.order !== undefined) {
