@@ -3,7 +3,7 @@ name: 发包到 NPM
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发
+      - dev  # 当推送到 main 分支时触发
     tags:
       - '*'  # 当打 tag 时触发
 
