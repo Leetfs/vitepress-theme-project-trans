@@ -34,7 +34,7 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
 
   const infoANfc = textA.normalize('NFC');
   const infoBNfc = textB.normalize('NFC');
-  if (infoA.order == undefined && infoB.order == undefined && infoA.order == infoB.order) {
+  if (infoA.order == undefined && infoB.order == undefined || infoA.order == infoB.order) {
     if (textA === undefined || textB === undefined) {
       return 0;
     }
