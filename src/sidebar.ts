@@ -29,12 +29,11 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
   }
 
   //如果 order 字段相等或不存在，则根据 text 字段排序
-  const textA = infoA.text;
-  const textB = infoB.text;
-
-  const infoANfc = textA.normalize('NFC');
-  const infoBNfc = textB.normalize('NFC');
   if (infoA.order == undefined && infoB.order == undefined || infoA.order == infoB.order) {
+    const textA = infoA.text;
+    const textB = infoB.text;
+    const infoANfc = textA.normalize('NFC');
+    const infoBNfc = textB.normalize('NFC');
     if (textA === undefined || textB === undefined) {
       return 0;
     }
