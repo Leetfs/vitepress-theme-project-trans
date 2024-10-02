@@ -27,9 +27,8 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
       return infoA.order - infoB.order;
     }
   }
-
   //如果 order 字段相等或不存在，则根据 text 字段排序
-  if (infoA.order == undefined && infoB.order == undefined || infoA.order == infoB.order) {
+  else {
     const textA = infoA.text;
     const textB = infoB.text;
     const infoANfc = textA.normalize('NFC');
