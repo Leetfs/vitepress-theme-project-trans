@@ -27,7 +27,7 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
       return infoA.order - infoB.order;
     }
   }
-  //如果 order 字段相等或不存在，则根据 text 字段排序
+  //如果 order 字段不存在，则根据 text 字段排序
   else {
     const textA = infoA.text;
     const textB = infoB.text;
