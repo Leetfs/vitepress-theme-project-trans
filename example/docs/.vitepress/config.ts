@@ -20,7 +20,7 @@ const sidebarOptions = [
     scanStartPath: 'campus',
     resolvePath: '/campus/',
     sortMenusByFrontmatterOrder: true,
-  }
+  },
 
   {
     ...baseConfig,
