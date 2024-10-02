@@ -29,17 +29,16 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
     return -1; // infoA 有 order 字段，infoB 没有
   } else if (infoB.order !== undefined) {
     return 1; // infoB 有 order 字段，infoA 没有
-  }
-
-  // 如果 order 字段相等或不存在，则根据 title 字段排序
-  const textA = infoA.text
-  const textB = infoB.text
-  if (textA === undefined || textB === undefined)
+  } else {
+    const textA = infoA.text
+    const textB = infoB.text
+    if (textA === undefined || textB === undefined)
     return 0
 
-  const infoANfc = textA.normalize('NFC')
-  const infoBNfc = textB.normalize('NFC')
-  return infoANfc.localeCompare(infoBNfc, 'zh', {
+    const infoANfc = textA.normalize('NFC')
+    const infoBNfc = textB.normalize('NFC')
+    return infoANfc.localeCompare(infoBNfc, 'zh', {
     numeric: true,
-  })
+    })
+  }
 }
