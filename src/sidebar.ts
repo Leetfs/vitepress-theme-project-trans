@@ -40,3 +40,4 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
       return infoA.order - infoB.order;
     }
   }
+}
