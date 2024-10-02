@@ -32,15 +32,14 @@ function sidebarTitleSorter(infoA: SidebarItem, infoB: SidebarItem): number {
   }
 
   // 如果 order 字段相等或不存在，则根据 title 字段排序
-  const titleA = infoA.title;
-  const titleB = infoB.title;
-  if (titleA === undefined || titleB === undefined) {
-    return 0;
-  }
+  const textA = infoA.text
+  const textB = infoB.text
+  if (textA === undefined || textB === undefined)
+    return 0
 
-  const infoANfc = titleA.normalize('NFC');
-  const infoBNfc = titleB.normalize('NFC');
+  const infoANfc = textA.normalize('NFC')
+  const infoBNfc = textB.normalize('NFC')
   return infoANfc.localeCompare(infoBNfc, 'zh', {
     numeric: true,
-  });
+  })
 }
